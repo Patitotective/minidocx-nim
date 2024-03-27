@@ -6,12 +6,12 @@ import cppstl
 
 const
   currentDir = currentSourcePath.parentDir()
-  minidocxHeaderPath {.strdefine.} = currentDir / "../minidocx/src/minidocx.hpp"
-  minidocxSourcePath {.strdefine.} = currentDir / "../minidocx/src/minidocx.cpp"
-  zipDirectory {.strdefine.} = currentDir / "../minidocx/3rdparty/zip-0.2.1"
-  zipSourcePath {.strdefine.} = currentDir / "../minidocx/3rdparty/zip-0.2.1/zip.c"
-  pugixmlDirectory {.strdefine.} = currentDir / "../minidocx/3rdparty/pugixml-1.13"
-  pugixmlSourcePath {.strdefine.} = currentDir / "../minidocx/3rdparty/pugixml-1.13/pugixml.cpp"
+  minidocxHeaderPath {.strdefine.} = currentDir / "minidocx/src/minidocx.hpp"
+  minidocxSourcePath {.strdefine.} = currentDir / "minidocx/src/minidocx.cpp"
+  zipDirectory {.strdefine.} = currentDir / "minidocx/3rdparty/zip-0.2.1"
+  zipSourcePath {.strdefine.} = currentDir / "minidocx/3rdparty/zip-0.2.1/zip.c"
+  pugixmlDirectory {.strdefine.} = currentDir / "minidocx/3rdparty/pugixml-1.13"
+  pugixmlSourcePath {.strdefine.} = currentDir / "minidocx/3rdparty/pugixml-1.13/pugixml.cpp"
 
 {.passc: "-I" & zipDirectory & " -I" & pugixmlDirectory.}
 {.compile: zipSourcePath.}
@@ -24,8 +24,16 @@ converter toStr*(s: string): CppString =
 {.push header: minidocxHeaderPath.}
 
 type
+  Bookmark* {.importcpp: "docx::Bookmark".} = object
   Document* {.importcpp: "docx::Document".} = object
   Paragraph* {.importcpp: "docx::Paragraph".} = object
+  Section* {.importcpp: "docx::Section".} = object
+  Run* {.importcpp: "docx::Run".} = object
+  Table* {.importcpp: "docx::Table".} = object
+  TableCell* {.importcpp: "docx::TableCell".} = object
+  TextFrame* {.importcpp: "docx::TextFrame".} = object
+
+proc pt2Twip(pt: float): int {.importcpp: "Pt2Twip(#)".}
 
 proc appendParagraph*(doc: var Document): Paragraph {.importcpp: "AppendParagraph".}
 proc appendParagraph*(doc: var Document, text: CppString): Paragraph {.importcpp: "AppendParagraph".}
