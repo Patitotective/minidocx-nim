@@ -1,6 +1,3 @@
-[submodule "minidocx"]
-	path = src/minidocx
-	url = https://github.com/totravel/minidocx
 [submodule "src/minidocx"]
 	path = src/minidocx
 	url = https://github.com/totravel/minidocx
