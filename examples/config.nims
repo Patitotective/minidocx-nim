@@ -1,2 +1,3 @@
 --backend:cpp
+--path:"../src"
 

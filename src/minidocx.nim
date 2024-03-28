@@ -33,7 +33,8 @@ type
   TableCell* {.importcpp: "docx::TableCell".} = object
   TextFrame* {.importcpp: "docx::TextFrame".} = object
 
-proc pt2Twip(pt: float): int {.importcpp: "Pt2Twip(#)".}
+proc pt2Twip*(pt: float): int {.importcpp: "docx::Pt2Twip(#)".}
+proc twip2Pt*(twip: int): float {.importcpp: "docx::Twip2Pt(#)".}
 
 proc appendParagraph*(doc: var Document): Paragraph {.importcpp: "AppendParagraph".}
 proc appendParagraph*(doc: var Document, text: CppString): Paragraph {.importcpp: "AppendParagraph".}
