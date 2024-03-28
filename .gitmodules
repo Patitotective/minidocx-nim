@@ -1,3 +1,4 @@
-[submodule "src/minidocx"]
-	path = src/minidocx
+
+[submodule "src/minidocx-lib"]
+	path = src/minidocx-lib
 	url = https://github.com/totravel/minidocx
