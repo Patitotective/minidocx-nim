@@ -1,17 +1,19 @@
 when not defined(cpp):
   {.error: "C++ backend required to use minidocx".}
 
+{.warning: "This module is not complete yet. Use minidocx/lowapi instead".}
+
 import std/os
 import cppstl
 
 const
   currentDir = currentSourcePath.parentDir()
-  minidocxHeaderPath {.strdefine.} = currentDir / "minidocx/src/minidocx.hpp"
-  minidocxSourcePath {.strdefine.} = currentDir / "minidocx/src/minidocx.cpp"
-  zipDirectory {.strdefine.} = currentDir / "minidocx/3rdparty/zip-0.2.1"
-  zipSourcePath {.strdefine.} = currentDir / "minidocx/3rdparty/zip-0.2.1/zip.c"
-  pugixmlDirectory {.strdefine.} = currentDir / "minidocx/3rdparty/pugixml-1.13"
-  pugixmlSourcePath {.strdefine.} = currentDir / "minidocx/3rdparty/pugixml-1.13/pugixml.cpp"
+  minidocxHeaderPath {.strdefine.} = currentDir / "minidocx-lib/src/minidocx.hpp"
+  minidocxSourcePath {.strdefine.} = currentDir / "minidocx-lib/src/minidocx.cpp"
+  zipDirectory {.strdefine.} = currentDir / "minidocx-lib/3rdparty/zip-0.2.1"
+  zipSourcePath {.strdefine.} = currentDir / "minidocx-lib/3rdparty/zip-0.2.1/zip.c"
+  pugixmlDirectory {.strdefine.} = currentDir / "minidocx-lib/3rdparty/pugixml-1.13"
+  pugixmlSourcePath {.strdefine.} = currentDir / "minidocx-lib/3rdparty/pugixml-1.13/pugixml.cpp"
 
 {.passc: "-I" & zipDirectory & " -I" & pugixmlDirectory.}
 {.compile: zipSourcePath.}
@@ -67,8 +69,7 @@ proc cm2twip*(cm: float): int {.importcpp: "docx::CM2Twip(#)".}
 proc twip2cm*(twip: int): float {.importcpp: "docx::Twip2CM(#)".}
 
 # proc constructTableCell*(): TableCell {.constructor, importcpp: "docx::TableCell(@)".}
-converter toBool*(this: var TableCell): bool {.importcpp: "TableCell::operator bool",
-    header: "minidocx.hpp".}
+converter toBool*(this: var TableCell): bool {.importcpp: "TableCell::operator bool".}
 proc empty*(this: TableCell): bool {.noSideEffect, importcpp: "empty",
                                  header: "minidocx.hpp".}
 proc SetWidth*(this: var TableCell; w: cint; units: cstring = "dxa") {.
